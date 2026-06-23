@@ -1,0 +1,40 @@
+# render.yaml
+#
+# Infrastructure-as-code config for Render. Pushing this file to the repo
+# root and creating a "Blueprint" on Render (see README.md) lets Render
+# build and deploy this service automatically, without manually clicking
+# through every setting in the dashboard.
+#
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: product-catalog-api
+    runtime: python
+    plan: free
+    branch: main
+
+    # Render installs dependencies from requirements.txt automatically for
+    # Python services, but we specify it explicitly to be unambiguous.
+    buildCommand: "pip install -r requirements.txt"
+
+    # Render injects the PORT environment variable at runtime — the app
+    # MUST bind to it (not a hardcoded port) for Render's routing to work.
+    # --host 0.0.0.0 is required so the process accepts connections from
+    # outside its own container, not just localhost.
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+
+    healthCheckPath: /health
+
+    envVars:
+      # DATABASE_URL is intentionally NOT set here with a value — it is
+      # configured as a secret in the Render dashboard (or linked from a
+      # Render PostgreSQL/Neon connection string) so the real credentials
+      # never live in source control. See README.md "Deployment on
+      # Render" for exact steps.
+      - key: DATABASE_URL
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - key: PYTHON_VERSION
+        value: "3.12.7"

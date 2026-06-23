@@ -1,0 +1,16 @@
+# Web framework
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+
+# Data validation (used by FastAPI for request/response schemas)
+pydantic==2.10.4
+
+# Database ORM and PostgreSQL driver
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+
+# Environment variable loading from .env files
+python-dotenv==1.0.1
+
+# Fake data generation for the seed script
+faker==33.1.0
