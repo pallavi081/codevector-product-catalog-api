@@ -7,7 +7,7 @@ pydantic>=2.10.4
 
 # Database ORM and PostgreSQL driver
 sqlalchemy==2.0.36
-psycopg[binary]==3.2.9
+psycopg[binary]
 
 # Environment variable loading from .env files
 python-dotenv==1.0.1
