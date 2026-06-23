@@ -22,6 +22,20 @@ load_dotenv()
 # For Neon/Render, this is typically provided as a single DATABASE_URL secret.
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgres://",
+        "postgresql+psycopg://",
+        1
+    )
+
+if DATABASE_URL and DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgresql://",
+        "postgresql+psycopg://",
+        1
+    )
+
 if not DATABASE_URL:
     raise RuntimeError(
         "DATABASE_URL environment variable is not set. "
