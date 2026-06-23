@@ -3,7 +3,7 @@ fastapi==0.115.6
 uvicorn[standard]==0.34.0
 
 # Data validation (used by FastAPI for request/response schemas)
-pydantic=2.10.4
+pydantic>=2.10.4
 
 # Database ORM and PostgreSQL driver
 sqlalchemy==2.0.36
